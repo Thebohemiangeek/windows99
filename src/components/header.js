@@ -1,42 +1,50 @@
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import { Button } from "react95"
+import styled from "styled-components"
+import NavBar from "./Globals/Navbar"
+import Clock from "./Globals/Clock"
+import { ReactComponent as WindowsIcon } from "../images/windows-xp.svg"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+const StyledWindows = styled(WindowsIcon)`
+  height: 34px;
+  margin-right: -10px;
+`
 
-Header.propTypes = {
+const Navigation = props => {
+  const toggleNav = () => {
+    props.setOpen(isOpen => !isOpen)
+  }
+  return (
+    <>
+      <NavBar>
+        <MainButton onClick={toggleNav}>
+          <StyledWindows />
+          Start
+        </MainButton>
+
+        <div>
+          <Clock />
+        </div>
+      </NavBar>
+    </>
+  )
+}
+
+Navigation.propTypes = {
   siteTitle: PropTypes.string,
 }
 
-Header.defaultProps = {
+Navigation.defaultProps = {
   siteTitle: ``,
 }
 
-export default Header
+export const MainButton = styled(Button)`
+  width: 100px;
+  height: 34px;
+  padding: 2px 2px 2px 0px;
+  align-items: center;
+  justify-content: start;
+`
+
+export default Navigation
